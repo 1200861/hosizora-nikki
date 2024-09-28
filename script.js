@@ -11,11 +11,6 @@ function createStar(x, y, name = '', color = '#fff') {
     star.style.backgroundColor = color; // 星の色を設定
     star.dataset.name = name; // 星の名前を格納するデータ属性
 
-    // 星の動きに使用するための中心座標と角度を追加
-    star.dataset.centerX = x; // 中心のX座標
-    star.dataset.centerY = y; // 中心のY座標
-    star.dataset.angle = Math.random() * 360; // 角度をランダムに初期化
-
     // 当たり判定用の要素を追加
     const hitbox = document.createElement('div');
     hitbox.className = 'hitbox';
@@ -116,34 +111,26 @@ function restoreDiaries() {
     }
 }
 
-// 星の移動速度をさらにゆっくりに設定
-const starSpeed = 0.0005; // 星の動きをさらに遅く
-const orbitRadius = 15;  // 星が描く円の半径を小さめに
+// 各星の移動速度を設定
+const starSpeed = 0.05; // 移動速度をさらに小さく設定（ゆったりした動きにする）
 
-// アニメーション: 星が円を描くように移動
+// アニメーション: 星が外に移動する機能
 setInterval(() => {
     const stars = document.querySelectorAll('.star:not([data-name="北斗七星"])'); // 北斗七星を除外
     stars.forEach(star => {
-        const centerX = parseFloat(star.dataset.centerX); // 中心のX座標
-        const centerY = parseFloat(star.dataset.centerY); // 中心のY座標
-        let angle = parseFloat(star.dataset.angle); // 現在の角度
-
-        // 星の新しい座標を計算
-        const newX = centerX + orbitRadius * Math.cos(angle);
-        const newY = centerY + orbitRadius * Math.sin(angle);
+        const currentLeft = parseFloat(star.style.left);
+        const currentTop = parseFloat(star.style.top);
+        
+        // 各星に移動方向を設定（非常にゆっくりした動き）
+        const directionX = (Math.random() - 0.5) * starSpeed; // X方向の動き
+        const directionY = (Math.random() - 0.5) * starSpeed; // Y方向の動き
 
         // 星の位置を更新
-        star.style.left = `${newX}px`;
-        star.style.top = `${newY}px`;
-
-        // 角度をゆっくり増やす
-        angle += starSpeed;
-        if (angle >= 2 * Math.PI) {
-            angle = 0; // 2πを超えたら角度をリセット
-        }
-        star.dataset.angle = angle; // 角度を保存
+        star.style.left = `${currentLeft + directionX}px`;
+        star.style.top = `${currentTop + directionY}px`;
     });
-}, 1000 / 60); // 60FPSで更新（滑らかに動くように調整）
+}, 200); // 200ミリ秒ごとに更新（動きを滑らかに）
 
 // 初回読み込み時に日記データを復元
 restoreDiaries();
+
