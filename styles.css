@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #000033, #000000);
+  color: white;
+  display: flex;
+}
+
+#explanation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 200px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+}
+
+#title {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  z-index: 10;
+}
+
+#sky {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: #fff;
+  transition: background-color 0.1s;
+}
+
+.star:hover {
+  animation: sparkle 1s infinite;
+}
+
+.red-star {
+  background-color: red;
+}
+
+@keyframes sparkle {
+  0% {
+      transform: scale(1);
+      opacity: 1;
+  }
+  50% {
+      transform: scale(1.5);
+      opacity: 0.5;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+.hitbox {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  background: transparent;
+}
