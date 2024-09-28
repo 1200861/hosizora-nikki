@@ -112,7 +112,7 @@ function restoreDiaries() {
 }
 
 // 各星の移動速度を設定
-const starSpeed = 0.1; // 速度を少し速く調整（ゆったりしながらも少し動きを感じられるように）
+const starSpeed = 0.5; // 動きをより大きくする
 
 // アニメーション: 星が外に移動する機能
 setInterval(() => {
@@ -121,15 +121,22 @@ setInterval(() => {
         const currentLeft = parseFloat(star.style.left);
         const currentTop = parseFloat(star.style.top);
         
-        // 各星に移動方向を設定（自然なゆっくりした動き）
-        const directionX = (Math.random() - 0.5) * starSpeed; // X方向の動き
-        const directionY = (Math.random() - 0.5) * starSpeed; // Y方向の動き
+        // 各星に移動方向を設定（自然でゆっくりとした大きな動き）
+        const directionX = (Math.random() - 0.5) * starSpeed * 10; // X方向の動きを大きく調整
+        const directionY = (Math.random() - 0.5) * starSpeed * 10; // Y方向の動きを大きく調整
 
         // 星の位置を更新
         star.style.left = `${currentLeft + directionX}px`;
         star.style.top = `${currentTop + directionY}px`;
+
+        // 画面外に出ないように制限
+        if (parseFloat(star.style.left) < 0 || parseFloat(star.style.left) > window.innerWidth - 10 ||
+            parseFloat(star.style.top) < 0 || parseFloat(star.style.top) > window.innerHeight - 10) {
+            star.style.left = `${Math.random() * (window.innerWidth - 10)}px`;
+            star.style.top = `${Math.random() * (window.innerHeight - 10)}px`;
+        }
     });
-}, 100); // 100ミリ秒ごとに更新（動きを滑らかに）
+}, 1000 / 60); // 60FPSで更新（滑らかに動くように調整）
 
 // 初回読み込み時に日記データを復元
 restoreDiaries();
