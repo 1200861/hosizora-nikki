@@ -116,9 +116,9 @@ function restoreDiaries() {
     }
 }
 
-// 各星の移動速度を設定
-const starSpeed = 0.01; // 動きをゆっくりにする
-const orbitRadius = 50; // 星が移動する円の半径
+// 星の移動速度をさらにゆっくりに設定
+const starSpeed = 0.0005; // 星の動きをさらに遅く
+const orbitRadius = 15;  // 星が描く円の半径を小さめに
 
 // アニメーション: 星が円を描くように移動
 setInterval(() => {
